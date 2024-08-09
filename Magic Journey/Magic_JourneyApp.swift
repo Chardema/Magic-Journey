@@ -2,15 +2,21 @@ import SwiftUI
 import BackgroundTasks
 import UserNotifications
 import CoreData
+import os.log
 
 @main
 struct MagicJourney: App {
     let persistenceController = PersistenceController.shared
     @StateObject var attractionsViewModel = AttractionsViewModel(context: PersistenceController.shared.container.viewContext)
+    
+    private let logger = Logger(subsystem: "com.magicjourney.app", category: "background_tasks")
 
     init() {
-        MagicJourney.registerBackgroundTasks()
+        MagicJourney.registerBackgroundTasks(logger: logger)
         requestNotificationPermission()
+        
+        // Planification initiale du rafraîchissement dès le lancement de l'application
+        MagicJourney.scheduleAppRefresh(logger: logger)
     }
 
     var body: some Scene {
@@ -18,91 +24,116 @@ struct MagicJourney: App {
             MainScreen()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onAppear {
-                    MagicJourney.scheduleAppRefresh()
+                    MagicJourney.scheduleProcessingTask(logger: logger)
                 }
         }
     }
 
-    private static func registerBackgroundTasks() {
+    private static func registerBackgroundTasks(logger: Logger) {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "app.magicjourney.refresh", using: nil) { task in
-            handleAppRefresh(task: task as! BGAppRefreshTask)
+            handleAppRefresh(task: task as! BGAppRefreshTask, logger: logger)
         }
+
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "app.magicjourney.processing", using: nil) { task in
+            handleProcessingTask(task: task as! BGProcessingTask, logger: logger)
+        }
+
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "app.magicjourney.sendAggregatedData", using: nil) { task in
-            handleSendAggregatedDataTask(task: task as! BGAppRefreshTask)
+            handleSendAggregatedDataTask(task: task as! BGProcessingTask, logger: logger)
         }
-        logMessage("Tâches en arrière-plan enregistrées.")
+
+        logger.info("Background tasks registered successfully.")
     }
+
 
     private func requestNotificationPermission() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             if granted {
-                MagicJourney.logMessage("Autorisation de notification accordée")
+                logger.info("Notification permission granted.")
             } else if let error = error {
-                MagicJourney.logMessage("Erreur lors de la demande d'autorisation : \(error)")
+                logger.error("Failed to request notification permission: \(error.localizedDescription)")
+            } else {
+                logger.info("Notification permission denied.")
             }
         }
     }
 
-    private static func scheduleAppRefresh() {
+    private static func scheduleProcessingTask(logger: Logger) {
+        let request = BGProcessingTaskRequest(identifier: "app.magicjourney.processing")
+        request.requiresNetworkConnectivity = true
+        request.requiresExternalPower = false
+
+        do {
+            try BGTaskScheduler.shared.submit(request)
+            logger.info("Processing task scheduled successfully.")
+        } catch {
+            logger.error("Failed to schedule processing task: \(error.localizedDescription)")
+        }
+    }
+
+    private static func scheduleAppRefresh(logger: Logger) {
         let request = BGAppRefreshTaskRequest(identifier: "app.magicjourney.refresh")
         request.earliestBeginDate = Date(timeIntervalSinceNow: 300) // Toutes les 5 minutes
 
         do {
             try BGTaskScheduler.shared.submit(request)
-            logMessage("Rafraîchissement de l'application planifié pour dans 5 minutes")
+            logger.info("App refresh scheduled successfully.")
         } catch {
-            logMessage("Impossible de planifier le rafraîchissement de l'application: \(error)")
+            logger.error("Failed to schedule app refresh: \(error.localizedDescription)")
         }
     }
-
-    private static func handleAppRefresh(task: BGAppRefreshTask) {
+    
+    private static func handleProcessingTask(task: BGProcessingTask, logger: Logger) {
         DispatchQueue.global(qos: .background).async {
-            logMessage("Début du rafraîchissement des données en arrière-plan")
+            logger.info("Starting background data processing.")
 
             let context = PersistenceController.shared.container.viewContext
-            let attractionsService = AttractionsService(viewContext: context)
+            context.perform {
+                let attractionsService = AttractionsService(viewContext: context)
 
-            logMessage("Tentative de fetch et mise à jour des attractions")
-            attractionsService.fetchAndUpdateAttractions()
-            logMessage("Rafraîchissement des données effectué")
-            task.setTaskCompleted(success: true)
+                logger.info("Checking for changes in favorite attraction wait times.")
+                attractionsService.fetchAndUpdateAttractions()
+                logger.info("Data processing completed.")
 
-            // Replanifier la tâche
-            scheduleAppRefresh()
+                task.setTaskCompleted(success: true)
+                scheduleProcessingTask(logger: logger)
+            }
+        }
+    }
+    
+    private static func handleSendAggregatedDataTask(task: BGProcessingTask, logger: Logger) {
+        DispatchQueue.global(qos: .background).async {
+            logger.info("Starting sendAggregatedData task.")
+
+            let context = PersistenceController.shared.container.viewContext
+            context.perform {
+                let attractionsService = AttractionsService(viewContext: context)
+                attractionsService.sendAggregatedWaitTimesToAPI()
+                logger.info("sendAggregatedData task completed.")
+
+                task.setTaskCompleted(success: true)
+            }
         }
     }
 
-    private static func handleSendAggregatedDataTask(task: BGAppRefreshTask) {
-        logMessage("Début de l'envoi des données agrégées en arrière-plan")
 
-        let context = PersistenceController.shared.container.viewContext
-        let attractionsService = AttractionsService(viewContext: context)
+    private static func handleAppRefresh(task: BGAppRefreshTask, logger: Logger) {
+        DispatchQueue.global(qos: .background).async {
+            logger.info("Starting background data refresh.")
 
-        logMessage("Envoi des données agrégées")
-        attractionsService.sendAggregatedWaitTimesToAPI()
-        logMessage("Envoi des données agrégées effectué")
-        task.setTaskCompleted(success: true)
-        
-        // Replanifier la tâche
-        scheduleSendAggregatedDataTask()
-    }
+            let context = PersistenceController.shared.container.viewContext
+            context.perform {
+                let attractionsService = AttractionsService(viewContext: context)
 
-    private static func scheduleSendAggregatedDataTask() {
-        let request = BGAppRefreshTaskRequest(identifier: "app.magicjourney.sendAggregatedData")
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 3600) // Exécuter toutes les heures
+                logger.info("Attempting to fetch and update attractions.")
+                attractionsService.fetchAndUpdateAttractions()
+                logger.info("Data refresh completed.")
 
-        do {
-            try BGTaskScheduler.shared.submit(request)
-            logMessage("Envoi des données agrégées planifié pour dans 1 heure")
-        } catch {
-            logMessage("Impossible de planifier l'envoi des données agrégées: \(error)")
+                task.setTaskCompleted(success: true)
+                
+                // Replanification après chaque rafraîchissement
+                scheduleAppRefresh(logger: logger)
+            }
         }
-    }
-
-    private static func logMessage(_ message: String) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let timestamp = dateFormatter.string(from: Date())
-        print("[\(timestamp)] \(message)")
     }
 }

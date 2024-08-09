@@ -2,16 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>BGTaskSchedulerPermittedIdentifiers</key>
-	<array>
-		<string>app.magicjourney.refresh</string>
-		<string>app.magicjourney.sendAggregatedData</string>
-	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>processing</string>
-		<string>remote-notification</string>
-	</array>
+    <key>BGTaskSchedulerPermittedIdentifiers</key>
+    <array>
+        <string>app.magicjourney.refresh</string>
+        <string>app.magicjourney.sendAggregatedData</string>
+        <string>app.magicjourney.processing</string>
+    </array>
+    <key>NSUserNotificationUsageDescription</key>
+    <string>Nous utilisons les notifications pour vous tenir informé des mises à jour importantes sur les attractions.</string>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>fetch</string>
+        <string>processing</string>
+        <string>remote-notification</string>
+    </array>
 </dict>
 </plist>

@@ -6,7 +6,7 @@ import UserNotifications
 class AttractionsService: ObservableObject {
     @Published var attractions: [Attractionss] = []
     private let viewContext: NSManagedObjectContext
-    var cancellable: AnyCancellable?
+    private var cancellable: AnyCancellable?
 
     private var aggregatedWaitTimes: [String: [String: (sum: Int, count: Int)]] = [:]
     private let aggregationInterval: TimeInterval = 3600 // 1 heure
@@ -14,6 +14,7 @@ class AttractionsService: ObservableObject {
 
     init(viewContext: NSManagedObjectContext) {
         self.viewContext = viewContext
+        loadAggregatedWaitTimesLocally() // Charger les données agrégées dès l'initialisation
     }
 
     func fetchAndUpdateAttractions() {
@@ -58,66 +59,59 @@ class AttractionsService: ObservableObject {
     }
 
     private func shouldSendAggregatedData() -> Bool {
-        // Récupérer la dernière date d'envoi
         let lastSentDate = UserDefaults.standard.object(forKey: lastSentDateKey) as? Date
+        let now = Date()
 
-        // Si aucune date n'est enregistrée ou si plus de 24 heures se sont écoulées, renvoyer true
-        if let lastSentDate = lastSentDate {
-            let interval = Date().timeIntervalSince(lastSentDate)
-            if interval >= 86400 { // 86400 secondes dans une journée
-                return true
-            } else {
-                print("L'envoi des données a déjà été effectué aujourd'hui.")
-                return false
-            }
-        } else {
-            // Si c'est la première fois
+        // Si aucune date n'est enregistrée ou si plus de 24 heures se sont écoulées
+        guard let lastSentDate = lastSentDate else {
             return true
+        }
+
+        let interval = now.timeIntervalSince(lastSentDate)
+        if interval >= 86400 { // 86400 secondes = 1 jour
+            return true
+        } else {
+            print("Data has already been sent today.")
+            return false
         }
     }
 
     public func sendAggregatedWaitTimesToAPI() {
-        // Charger les données agrégées depuis le stockage local
         loadAggregatedWaitTimesLocally()
 
         let aggregatedAverages = calculateHourlyAverages()
         
-        print("Données agrégées avant envoi à l'API : \(aggregatedAverages)")
+        print("Aggregated data before sending to API: \(aggregatedAverages)")
 
-        // Construire la requête API
         guard let url = URL(string: "https://eurojourney.azurewebsites.net/api/wait-times") else {
-            print("URL invalide")
+            print("Invalid URL")
             return
         }
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         do {
-            // Convertir les données agrégées en JSON
             let jsonData = try JSONEncoder().encode(aggregatedAverages)
             request.httpBody = jsonData
         } catch {
-            print("Erreur lors de l'encodage JSON : \(error)")
+            print("Error encoding JSON: \(error)")
             return
         }
 
-        // Envoyer la requête
         URLSession.shared.dataTask(with: request) { _, response, error in
             if let error = error {
-                print("Erreur lors de l'envoi des données : \(error)")
+                print("Error sending data: \(error)")
             } else {
-                print("Données agrégées envoyées avec succès à l'API")
-                self.clearAggregatedWaitTimesInCoreData() // Supprimer les données après l'envoi
+                print("Aggregated data sent successfully to the API")
+                self.clearAggregatedWaitTimesInCoreData()
                 self.aggregatedWaitTimes = [:]
-                self.saveAggregatedWaitTimesLocally() // Sauvegarder l'état vide
-
-                // Enregistrer la date actuelle comme dernière date d'envoi
+                self.saveAggregatedWaitTimesLocally()
                 UserDefaults.standard.set(Date(), forKey: self.lastSentDateKey)
             }
         }.resume()
     }
-
 
     private func updateCoreDataWithAttractions(_ attractionsData: [Attractionss]) {
         print("Updating Core Data with \(attractionsData.count) attractions")
@@ -131,48 +125,16 @@ class AttractionsService: ObservableObject {
             let existingAttractionsMap = Dictionary(uniqueKeysWithValues: existingAttractions.map { ($0.id, $0) })
 
             for attractionData in attractionsData {
-                if let existingAttraction = existingAttractionsMap[attractionData.id] {
-                    existingAttraction.waitTime = Int16(attractionData.waitTime ?? 0)
-                    existingAttraction.status = attractionData.status
-                    existingAttraction.lastKnownWaitTime = Int16(attractionData.waitTime ?? 0)
-                } else {
-                    print("Creating new attraction: \(attractionData.name)")
-                    let newAttraction = Attraction(context: viewContext)
-                    newAttraction.id = attractionData.id
-                    newAttraction.name = attractionData.name
-                    newAttraction.waitTime = Int16(attractionData.waitTime ?? 0)
-                    newAttraction.status = attractionData.status
-                    newAttraction.land = attractionData.land
-                    newAttraction.descriptionText = attractionData.description
-                    newAttraction.lastKnownWaitTime = Int16(attractionData.waitTime ?? 0)
-                }
+                let attraction = existingAttractionsMap[attractionData.id] ?? Attraction(context: viewContext)
+                attraction.id = attractionData.id
+                attraction.name = attractionData.name
+                attraction.waitTime = Int16(attractionData.waitTime ?? 0)
+                attraction.status = attractionData.status
+                attraction.land = attractionData.land
+                attraction.descriptionText = attractionData.description
+                attraction.lastKnownWaitTime = Int16(attractionData.waitTime ?? 0)
 
-                // Agrégation des temps d'attente par heure
-                let attractionId = attractionData.id
-                let currentHour = Calendar.current.component(.hour, from: Date())
-                let hourKey = String(format: "%02d", currentHour)
-
-                // Vérifier si l'attraction et l'heure existent déjà dans Core Data
-                let fetchRequest: NSFetchRequest<AggregatedWaitTime> = AggregatedWaitTime.fetchRequest()
-                fetchRequest.predicate = NSPredicate(format: "attractionId == %@ AND hour == %@", attractionId.uuidString, hourKey)
-                do {
-                    let existingData = try viewContext.fetch(fetchRequest)
-
-                    if let aggregatedWaitTime = existingData.first {
-                        // Mettre à jour les données existantes
-                        aggregatedWaitTime.sumWaitTime += Int32(attractionData.waitTime ?? 0)
-                        aggregatedWaitTime.countWaitTime += 1
-                    } else {
-                        // Créer un nouvel enregistrement
-                        let aggregatedWaitTime = AggregatedWaitTime(context: viewContext)
-                        aggregatedWaitTime.attractionId = attractionId.uuidString
-                        aggregatedWaitTime.hour = hourKey
-                        aggregatedWaitTime.sumWaitTime = Int32(attractionData.waitTime ?? 0)
-                        aggregatedWaitTime.countWaitTime = 1
-                    }
-                } catch {
-                    print("Erreur lors de la récupération/mise à jour des données agrégées : \(error)")
-                }
+                aggregateWaitTimes(for: attractionData)
             }
 
             try viewContext.save()
@@ -182,6 +144,31 @@ class AttractionsService: ObservableObject {
         }
     }
 
+    private func aggregateWaitTimes(for attractionData: Attractionss) {
+        let attractionId = attractionData.id
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        let hourKey = String(format: "%02d", currentHour)
+
+        let fetchRequest: NSFetchRequest<AggregatedWaitTime> = AggregatedWaitTime.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "attractionId == %@ AND hour == %@", attractionId.uuidString, hourKey)
+
+        do {
+            let existingData = try viewContext.fetch(fetchRequest).first
+
+            if let aggregatedWaitTime = existingData {
+                aggregatedWaitTime.sumWaitTime += Int32(attractionData.waitTime ?? 0)
+                aggregatedWaitTime.countWaitTime += 1
+            } else {
+                let newAggregatedWaitTime = AggregatedWaitTime(context: viewContext)
+                newAggregatedWaitTime.attractionId = attractionId.uuidString
+                newAggregatedWaitTime.hour = hourKey
+                newAggregatedWaitTime.sumWaitTime = Int32(attractionData.waitTime ?? 0)
+                newAggregatedWaitTime.countWaitTime = 1
+            }
+        } catch {
+            print("Error aggregating wait times: \(error)")
+        }
+    }
 
     private func monitorWaitTimes(newAttractionsData: [Attractionss]) {
         let fetchRequest: NSFetchRequest<Attraction> = Attraction.fetchRequest()
@@ -205,21 +192,17 @@ class AttractionsService: ObservableObject {
         }
     }
 
-    func sendNotification(for attraction: Attraction, newWaitTime: Int) {
+    private func sendNotification(for attraction: Attraction, newWaitTime: Int) {
         let content = UNMutableNotificationContent()
         content.title = "\(attraction.name ?? "Attraction") : Changement de temps d'attente"
         content.body = "Le temps d'attente est maintenant de \(newWaitTime) minutes."
 
-        // Créer un déclencheur pour envoyer la notification immédiatement
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-
-        // Créer la requête de notification
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
 
-        // Ajouter la requête au centre de notifications
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
-                print("Erreur lors de l'ajout de la notification : \(error)")
+                print("Error adding notification: \(error)")
             }
         }
     }
@@ -227,12 +210,10 @@ class AttractionsService: ObservableObject {
     private func calculateHourlyAverages() -> [String: [String: Int]] {
         var averages: [String: [String: Int]] = [:]
 
-        // Définir les tranches horaires pour matin, midi et soir
-        let morningHours = 9..<12  // Exemple : de 9h à 11h
-        let afternoonHours = 12..<17 // Exemple : de 12h à 16h
-        let eveningHours = 17..<23 // Exemple : de 17h à 22h
+        let morningHours = 9..<12
+        let afternoonHours = 12..<17
+        let eveningHours = 17..<23
 
-        // Parcourir les données agrégées
         for (attractionId, hourData) in aggregatedWaitTimes {
             var attractionAverages: [String: Int] = [:]
 
@@ -240,7 +221,6 @@ class AttractionsService: ObservableObject {
                 let hour = Int(hourKey)!
                 let average = count > 0 ? sum / count : 0
 
-                // Regrouper les moyennes par tranche horaire
                 if morningHours.contains(hour) {
                     attractionAverages["matin"] = (attractionAverages["matin"] ?? 0) + average
                 } else if afternoonHours.contains(hour) {
@@ -250,7 +230,6 @@ class AttractionsService: ObservableObject {
                 }
             }
 
-            // Calculer les moyennes finales pour chaque tranche horaire
             for period in ["matin", "midi", "soir"] {
                 if let total = attractionAverages[period], total > 0 {
                     let count = hourData.filter {
@@ -284,38 +263,24 @@ class AttractionsService: ObservableObject {
             }
             try viewContext.save()
         } catch {
-            print("Erreur lors de la suppression des données agrégées : \(error)")
+            print("Error clearing aggregated data: \(error)")
         }
     }
 
-    private func isParkClosed() -> Bool {
-        // Implémentez votre logique pour déterminer si le parc est fermé
-        // Par exemple, vous pouvez vérifier l'heure actuelle ou le statut des attractions
-        // ...
-
-        // Exemple simple basé sur l'heure (à adapter selon vos besoins)
-        let currentHour = Calendar.current.component(.hour, from: Date())
-        return currentHour < 9 || currentHour >= 23
-    }
-
     private func loadAggregatedWaitTimesLocally() {
-        // Charger les données agrégées depuis Core Data
         let fetchRequest: NSFetchRequest<AggregatedWaitTime> = AggregatedWaitTime.fetchRequest()
         do {
             let aggregatedWaitTimeData = try viewContext.fetch(fetchRequest)
             for data in aggregatedWaitTimeData {
-                if aggregatedWaitTimes[data.attractionId!] == nil {
-                    aggregatedWaitTimes[data.attractionId!] = [:]
-                }
+                aggregatedWaitTimes[data.attractionId!] = [:]
                 aggregatedWaitTimes[data.attractionId!]![data.hour!] = (Int(data.sumWaitTime), Int(data.countWaitTime))
             }
         } catch {
-            print("Erreur lors du chargement des données agrégées : \(error)")
+            print("Error loading aggregated data: \(error)")
         }
     }
 
     private func saveAggregatedWaitTimesLocally() {
-        // Supprimer les anciennes données agrégées
         let fetchRequest: NSFetchRequest<AggregatedWaitTime> = AggregatedWaitTime.fetchRequest()
         do {
             let existingData = try viewContext.fetch(fetchRequest)
@@ -323,10 +288,9 @@ class AttractionsService: ObservableObject {
                 viewContext.delete(object)
             }
         } catch {
-            print("Erreur lors de la suppression des anciennes données agrégées : \(error)")
+            print("Error clearing old aggregated data: \(error)")
         }
 
-        // Sauvegarder les nouvelles données agrégées
         for (attractionId, hourData) in aggregatedWaitTimes {
             for (hourKey, (sum, count)) in hourData {
                 let aggregatedWaitTime = AggregatedWaitTime(context: viewContext)
@@ -340,7 +304,7 @@ class AttractionsService: ObservableObject {
         do {
             try viewContext.save()
         } catch {
-            print("Erreur lors de la sauvegarde des données agrégées : \(error)")
+            print("Error saving aggregated data: \(error)")
         }
     }
 
