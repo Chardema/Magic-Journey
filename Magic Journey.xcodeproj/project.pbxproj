@@ -1,0 +1,692 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E4288F4B2C62524E00E576D9 /* Magic_JourneyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4288F4A2C62524E00E576D9 /* Magic_JourneyApp.swift */; };
+		E4288F4D2C62524E00E576D9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4288F4C2C62524E00E576D9 /* ContentView.swift */; };
+		E4288F4F2C62524F00E576D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4288F4E2C62524F00E576D9 /* Assets.xcassets */; };
+		E4288F532C62524F00E576D9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4288F522C62524F00E576D9 /* Preview Assets.xcassets */; };
+		E4288F5D2C62524F00E576D9 /* Magic_JourneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4288F5C2C62524F00E576D9 /* Magic_JourneyTests.swift */; };
+		E4288F672C62524F00E576D9 /* Magic_JourneyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4288F662C62524F00E576D9 /* Magic_JourneyUITests.swift */; };
+		E4288F692C62524F00E576D9 /* Magic_JourneyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4288F682C62524F00E576D9 /* Magic_JourneyUITestsLaunchTests.swift */; };
+		E4288F762C6254FE00E576D9 /* HoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4288F752C6254FE00E576D9 /* HoursView.swift */; };
+		E4288F782C62565500E576D9 /* AttractionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4288F772C62565500E576D9 /* AttractionsView.swift */; };
+		E4288F7A2C62568700E576D9 /* ShowsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4288F792C62568700E576D9 /* ShowsView.swift */; };
+		E4288F7C2C62589600E576D9 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4288F7B2C62589600E576D9 /* HomeScreen.swift */; };
+		E4288F7E2C6277B500E576D9 /* Attraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4288F7D2C6277B500E576D9 /* Attraction.swift */; };
+		E4288F802C6277E700E576D9 /* AttractionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4288F7F2C6277E700E576D9 /* AttractionsService.swift */; };
+		E4483CE92C64FE8C0099C838 /* AttractionsFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4483CE82C64FE8C0099C838 /* AttractionsFetchedResultsController.swift */; };
+		E47578642C62A285006A1A85 /* normalizedImageName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47578632C62A285006A1A85 /* normalizedImageName.swift */; };
+		E4AAFDFA2C63BE670061E42B /* AttractionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AAFDF92C63BE670061E42B /* AttractionsViewModel.swift */; };
+		E4AD314E2C62D9A60099EBF2 /* AttractionsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E4AD314C2C62D9A60099EBF2 /* AttractionsModel.xcdatamodeld */; };
+		E4AD31512C62DFF30099EBF2 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AD31502C62DFF30099EBF2 /* PersistenceController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E4288F592C62524F00E576D9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4288F3F2C62524E00E576D9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E4288F462C62524E00E576D9;
+			remoteInfo = "Magic Journey";
+		};
+		E4288F632C62524F00E576D9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4288F3F2C62524E00E576D9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E4288F462C62524E00E576D9;
+			remoteInfo = "Magic Journey";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E4288F472C62524E00E576D9 /* Magic Journey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Magic Journey.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4288F4A2C62524E00E576D9 /* Magic_JourneyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magic_JourneyApp.swift; sourceTree = "<group>"; };
+		E4288F4C2C62524E00E576D9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E4288F4E2C62524F00E576D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E4288F502C62524F00E576D9 /* Magic_Journey.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Magic_Journey.entitlements; sourceTree = "<group>"; };
+		E4288F522C62524F00E576D9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E4288F582C62524F00E576D9 /* Magic JourneyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Magic JourneyTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4288F5C2C62524F00E576D9 /* Magic_JourneyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magic_JourneyTests.swift; sourceTree = "<group>"; };
+		E4288F622C62524F00E576D9 /* Magic JourneyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Magic JourneyUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4288F662C62524F00E576D9 /* Magic_JourneyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magic_JourneyUITests.swift; sourceTree = "<group>"; };
+		E4288F682C62524F00E576D9 /* Magic_JourneyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magic_JourneyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E4288F752C6254FE00E576D9 /* HoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursView.swift; sourceTree = "<group>"; };
+		E4288F772C62565500E576D9 /* AttractionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionsView.swift; sourceTree = "<group>"; };
+		E4288F792C62568700E576D9 /* ShowsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowsView.swift; sourceTree = "<group>"; };
+		E4288F7B2C62589600E576D9 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		E4288F7D2C6277B500E576D9 /* Attraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attraction.swift; sourceTree = "<group>"; };
+		E4288F7F2C6277E700E576D9 /* AttractionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionsService.swift; sourceTree = "<group>"; };
+		E4483CE82C64FE8C0099C838 /* AttractionsFetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionsFetchedResultsController.swift; sourceTree = "<group>"; };
+		E47578632C62A285006A1A85 /* normalizedImageName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = normalizedImageName.swift; sourceTree = "<group>"; };
+		E4AAFDF92C63BE670061E42B /* AttractionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionsViewModel.swift; sourceTree = "<group>"; };
+		E4AD314D2C62D9A60099EBF2 /* AttractionsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AttractionsModel.xcdatamodel; sourceTree = "<group>"; };
+		E4AD31502C62DFF30099EBF2 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		E4AD31542C62E59E0099EBF2 /* Magic-Journey-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Magic-Journey-Info.plist"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E4288F442C62524E00E576D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E4288F552C62524F00E576D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E4288F5F2C62524F00E576D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E4288F3E2C62524E00E576D9 = {
+			isa = PBXGroup;
+			children = (
+				E4288F492C62524E00E576D9 /* Magic Journey */,
+				E4288F5B2C62524F00E576D9 /* Magic JourneyTests */,
+				E4288F652C62524F00E576D9 /* Magic JourneyUITests */,
+				E4288F482C62524E00E576D9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E4288F482C62524E00E576D9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E4288F472C62524E00E576D9 /* Magic Journey.app */,
+				E4288F582C62524F00E576D9 /* Magic JourneyTests.xctest */,
+				E4288F622C62524F00E576D9 /* Magic JourneyUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E4288F492C62524E00E576D9 /* Magic Journey */ = {
+			isa = PBXGroup;
+			children = (
+				E4AD31542C62E59E0099EBF2 /* Magic-Journey-Info.plist */,
+				E4AD314F2C62DFA00099EBF2 /* Data */,
+				E4288F4A2C62524E00E576D9 /* Magic_JourneyApp.swift */,
+				E4288F792C62568700E576D9 /* ShowsView.swift */,
+				E4288F7B2C62589600E576D9 /* HomeScreen.swift */,
+				E4288F4C2C62524E00E576D9 /* ContentView.swift */,
+				E4288F772C62565500E576D9 /* AttractionsView.swift */,
+				E4288F752C6254FE00E576D9 /* HoursView.swift */,
+				E4288F4E2C62524F00E576D9 /* Assets.xcassets */,
+				E4288F502C62524F00E576D9 /* Magic_Journey.entitlements */,
+				E4288F512C62524F00E576D9 /* Preview Content */,
+				E4288F7D2C6277B500E576D9 /* Attraction.swift */,
+				E4288F7F2C6277E700E576D9 /* AttractionsService.swift */,
+				E47578632C62A285006A1A85 /* normalizedImageName.swift */,
+				E4AAFDF92C63BE670061E42B /* AttractionsViewModel.swift */,
+				E4483CE82C64FE8C0099C838 /* AttractionsFetchedResultsController.swift */,
+			);
+			path = "Magic Journey";
+			sourceTree = "<group>";
+		};
+		E4288F512C62524F00E576D9 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				E4288F522C62524F00E576D9 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E4288F5B2C62524F00E576D9 /* Magic JourneyTests */ = {
+			isa = PBXGroup;
+			children = (
+				E4288F5C2C62524F00E576D9 /* Magic_JourneyTests.swift */,
+			);
+			path = "Magic JourneyTests";
+			sourceTree = "<group>";
+		};
+		E4288F652C62524F00E576D9 /* Magic JourneyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E4288F662C62524F00E576D9 /* Magic_JourneyUITests.swift */,
+				E4288F682C62524F00E576D9 /* Magic_JourneyUITestsLaunchTests.swift */,
+			);
+			path = "Magic JourneyUITests";
+			sourceTree = "<group>";
+		};
+		E4AD314F2C62DFA00099EBF2 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E4AD314C2C62D9A60099EBF2 /* AttractionsModel.xcdatamodeld */,
+				E4AD31502C62DFF30099EBF2 /* PersistenceController.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E4288F462C62524E00E576D9 /* Magic Journey */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E4288F6C2C62524F00E576D9 /* Build configuration list for PBXNativeTarget "Magic Journey" */;
+			buildPhases = (
+				E4288F432C62524E00E576D9 /* Sources */,
+				E4288F442C62524E00E576D9 /* Frameworks */,
+				E4288F452C62524E00E576D9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Magic Journey";
+			productName = "Magic Journey";
+			productReference = E4288F472C62524E00E576D9 /* Magic Journey.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E4288F572C62524F00E576D9 /* Magic JourneyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E4288F6F2C62524F00E576D9 /* Build configuration list for PBXNativeTarget "Magic JourneyTests" */;
+			buildPhases = (
+				E4288F542C62524F00E576D9 /* Sources */,
+				E4288F552C62524F00E576D9 /* Frameworks */,
+				E4288F562C62524F00E576D9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E4288F5A2C62524F00E576D9 /* PBXTargetDependency */,
+			);
+			name = "Magic JourneyTests";
+			productName = "Magic JourneyTests";
+			productReference = E4288F582C62524F00E576D9 /* Magic JourneyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E4288F612C62524F00E576D9 /* Magic JourneyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E4288F722C62524F00E576D9 /* Build configuration list for PBXNativeTarget "Magic JourneyUITests" */;
+			buildPhases = (
+				E4288F5E2C62524F00E576D9 /* Sources */,
+				E4288F5F2C62524F00E576D9 /* Frameworks */,
+				E4288F602C62524F00E576D9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E4288F642C62524F00E576D9 /* PBXTargetDependency */,
+			);
+			name = "Magic JourneyUITests";
+			productName = "Magic JourneyUITests";
+			productReference = E4288F622C62524F00E576D9 /* Magic JourneyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E4288F3F2C62524E00E576D9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					E4288F462C62524E00E576D9 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					E4288F572C62524F00E576D9 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = E4288F462C62524E00E576D9;
+					};
+					E4288F612C62524F00E576D9 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = E4288F462C62524E00E576D9;
+					};
+				};
+			};
+			buildConfigurationList = E4288F422C62524E00E576D9 /* Build configuration list for PBXProject "Magic Journey" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E4288F3E2C62524E00E576D9;
+			productRefGroup = E4288F482C62524E00E576D9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E4288F462C62524E00E576D9 /* Magic Journey */,
+				E4288F572C62524F00E576D9 /* Magic JourneyTests */,
+				E4288F612C62524F00E576D9 /* Magic JourneyUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E4288F452C62524E00E576D9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4288F532C62524F00E576D9 /* Preview Assets.xcassets in Resources */,
+				E4288F4F2C62524F00E576D9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E4288F562C62524F00E576D9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E4288F602C62524F00E576D9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E4288F432C62524E00E576D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4AAFDFA2C63BE670061E42B /* AttractionsViewModel.swift in Sources */,
+				E4288F802C6277E700E576D9 /* AttractionsService.swift in Sources */,
+				E4483CE92C64FE8C0099C838 /* AttractionsFetchedResultsController.swift in Sources */,
+				E4288F4D2C62524E00E576D9 /* ContentView.swift in Sources */,
+				E4AD314E2C62D9A60099EBF2 /* AttractionsModel.xcdatamodeld in Sources */,
+				E4288F7A2C62568700E576D9 /* ShowsView.swift in Sources */,
+				E4AD31512C62DFF30099EBF2 /* PersistenceController.swift in Sources */,
+				E4288F7C2C62589600E576D9 /* HomeScreen.swift in Sources */,
+				E4288F7E2C6277B500E576D9 /* Attraction.swift in Sources */,
+				E4288F762C6254FE00E576D9 /* HoursView.swift in Sources */,
+				E4288F4B2C62524E00E576D9 /* Magic_JourneyApp.swift in Sources */,
+				E4288F782C62565500E576D9 /* AttractionsView.swift in Sources */,
+				E47578642C62A285006A1A85 /* normalizedImageName.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E4288F542C62524F00E576D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4288F5D2C62524F00E576D9 /* Magic_JourneyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E4288F5E2C62524F00E576D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4288F672C62524F00E576D9 /* Magic_JourneyUITests.swift in Sources */,
+				E4288F692C62524F00E576D9 /* Magic_JourneyUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E4288F5A2C62524F00E576D9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E4288F462C62524E00E576D9 /* Magic Journey */;
+			targetProxy = E4288F592C62524F00E576D9 /* PBXContainerItemProxy */;
+		};
+		E4288F642C62524F00E576D9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E4288F462C62524E00E576D9 /* Magic Journey */;
+			targetProxy = E4288F632C62524F00E576D9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E4288F6A2C62524F00E576D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E4288F6B2C62524F00E576D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		E4288F6D2C62524F00E576D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Magic Journey/Magic_Journey.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Magic Journey/Preview Content\"";
+				DEVELOPMENT_TEAM = 4FC72C9MYF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Magic-Journey-Info.plist";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "sparkteam.Magic-Journey";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E4288F6E2C62524F00E576D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Magic Journey/Magic_Journey.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Magic Journey/Preview Content\"";
+				DEVELOPMENT_TEAM = 4FC72C9MYF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Magic-Journey-Info.plist";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "sparkteam.Magic-Journey";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E4288F702C62524F00E576D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "sparkteam.Magic-JourneyTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Magic Journey.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Magic Journey";
+			};
+			name = Debug;
+		};
+		E4288F712C62524F00E576D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "sparkteam.Magic-JourneyTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Magic Journey.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Magic Journey";
+			};
+			name = Release;
+		};
+		E4288F732C62524F00E576D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4FC72C9MYF;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "sparkteam.Magic-JourneyUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Magic Journey";
+			};
+			name = Debug;
+		};
+		E4288F742C62524F00E576D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4FC72C9MYF;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "sparkteam.Magic-JourneyUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Magic Journey";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E4288F422C62524E00E576D9 /* Build configuration list for PBXProject "Magic Journey" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4288F6A2C62524F00E576D9 /* Debug */,
+				E4288F6B2C62524F00E576D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E4288F6C2C62524F00E576D9 /* Build configuration list for PBXNativeTarget "Magic Journey" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4288F6D2C62524F00E576D9 /* Debug */,
+				E4288F6E2C62524F00E576D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E4288F6F2C62524F00E576D9 /* Build configuration list for PBXNativeTarget "Magic JourneyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4288F702C62524F00E576D9 /* Debug */,
+				E4288F712C62524F00E576D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E4288F722C62524F00E576D9 /* Build configuration list for PBXNativeTarget "Magic JourneyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4288F732C62524F00E576D9 /* Debug */,
+				E4288F742C62524F00E576D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E4AD314C2C62D9A60099EBF2 /* AttractionsModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E4AD314D2C62D9A60099EBF2 /* AttractionsModel.xcdatamodel */,
+			);
+			currentVersion = E4AD314D2C62D9A60099EBF2 /* AttractionsModel.xcdatamodel */;
+			path = AttractionsModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = E4288F3F2C62524E00E576D9 /* Project object */;
+}
